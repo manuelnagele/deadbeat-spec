@@ -51,7 +51,8 @@ end)
 m:Click(function(item, button) ToggleMyWindow() end, "open the window")
 ```
 
-- **At most three default items;** the rest `default = false` (the player can add them from the shelf).
+- **At most three default items showing at once in any place** (use `contexts`: a raid item and a city item
+  can both be defaults); the rest `default = false` (the player adds them from the shelf).
 - **Values short** (≤ 8 characters ideally); **colour only for a state** and never alone.
 - **A widget** (`m:Widget(id, { width })`) only when an icon and a value can't say it (≤ 64 × 14 px).
 - **Contexts:** where is each item worth the space? `farm`, `raid`, `dungeon`, `city`, `world`.
@@ -96,7 +97,7 @@ loading it. Put pure logic in its own file (`Core.lua`, no WoW calls) with plain
 
 - [ ] Works without Deadbeat (load it alone in your head: every `Deadbeat.` call behind `if Deadbeat`).
 - [ ] `Register` once; module name and item ids are unique and stable; an icon for the module.
-- [ ] At most three default items; values short; states backed by text.
+- [ ] At most three default items showing at once in any place; values short; states backed by text.
 - [ ] Tooltip lines short and context-aware; details behind `shift`; one obvious click or none.
 - [ ] Every setting is a row; destructive buttons have `confirm = true`.
 - [ ] Secret values checked; nothing protected touched in combat.

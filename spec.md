@@ -53,7 +53,7 @@ module falls back to its own UI or shows nothing; it must not error.
 
 - `id`: unique within the module and stable across versions (the player's choices are saved under `Module.id`).
 - `opts`: `name` (tooltips, shelf, console), `icon`, `default` (on the bar out of the box; default `true`; **at most
-  three per module**), `contexts` (where it shows by default, e.g. `{ raid = true, world = true }`; omitted =
+  three showing at once in any place**), `contexts` (where it shows by default, e.g. `{ raid = true, world = true }`; omitted =
   everywhere), `kind = "launcher"` for an icon-only item.
 - `item:Set(value, state)`: a short string (≤ 8 characters ideally, 16 at most) and one of `normal`, `good`,
   `warn`, `bad` (colours the value; the text must say it too).
@@ -129,7 +129,8 @@ item, `Section` the module's tooltip, `OnClick` its click, `Band` draws into not
 ## 5. Rules for modules
 
 1. **One module, one group,** with a name and an icon.
-2. **Items say one thing each;** short values; a state colour always backed by the text; ≤ 3 default items.
+2. **Items say one thing each;** short values; a state colour always backed by the text; ≤ 3 default items
+   showing at once in any place.
 3. **Tooltips:** your lines only, short, context-aware, details behind Shift.
 4. **Never break the bar:** `pcall` around APIs that may be missing.
 5. **Secret values** (Forever): check `issecretvalue(v)` before any comparison or `if`.
