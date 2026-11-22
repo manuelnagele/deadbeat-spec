@@ -1,0 +1,23 @@
+name: test
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lua:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the hub (deadbeat)
+        uses: actions/checkout@v4
+        with:
+          repository: manuelnagele/deadbeat
+          path: deadbeat
+      - name: Install LuaJIT
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq luajit
+      - name: Harness self-test
+        run: DEADBEAT=$PWD/deadbeat luajit tests/harness.lua
+      - name: Example module
+        working-directory: examples/hello
+        run: DEADBEAT=$GITHUB_WORKSPACE/deadbeat HARNESS=$GITHUB_WORKSPACE/harness/wowstub.lua luajit tests/smoke.lua

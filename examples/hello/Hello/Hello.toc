@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: Hello
+## Notes: The example Deadbeat module: every part of the API in one small file.
+## Author: Your Name
+## Version: 0.1.0
+## SavedVariables: HelloDB
+## OptionalDeps: Deadbeat
+
+Hello.lua
