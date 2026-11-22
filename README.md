@@ -7,6 +7,7 @@ module with an AI assistant, the stub test harness and an example module.
 - [VISION.md](VISION.md): where this is going and what it is not
 - [ROADMAP.md](ROADMAP.md): milestones
 - [PROCESS.md](PROCESS.md): how work is done across the repos
+- [DESIGN.md](DESIGN.md): the design language: items, groups, interaction, edit mode (draft; becomes spec 2.0)
 - [spec.md](spec.md): the spec, 1.0 (Deadbeat 1.0)
 - [AGENTS.md](AGENTS.md): for AI assistants (and people) turning an addon into a module
 - [harness/](harness/): the stubbed WoW API for tests outside the game
