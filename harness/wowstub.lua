@@ -52,6 +52,7 @@ function GetLootSourceInfo() return "Creature-0-1-349-21543-11517-0001" end
 function IsFishingLoot() return false end
 local shift = false
 function IsShiftKeyDown() return shift end
+function GetCursorPosition() return 0, 0 end
 function GetZoneText() return "Desolace" end
 function strtrim(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
 function GetCoinTextureString(c) return tostring(c) .. "c" end
@@ -110,9 +111,14 @@ end
 -- load the hub from a deadbeat checkout and run its startup (ADDON_LOADED, PLAYER_LOGIN)
 function H.loadDeadbeat(dir)
     dir = dir or os.getenv("DEADBEAT") or "../deadbeat"
-    local files = { dir .. "/Deadbeat/Kit.lua", dir .. "/Deadbeat/Deadbeat.lua", dir .. "/Deadbeat/Settings.lua" }
-    local broker = dir .. "/Deadbeat/Broker.lua"                  -- from Deadbeat 0.4
-    if io.open(broker) then files[#files + 1] = broker end
+    -- the files the hub's TOC lists, in its order (so the harness follows the hub as it grows)
+    local files = {}
+    local toc = assert(io.open(dir .. "/Deadbeat/Deadbeat.toc"), "no Deadbeat.toc in " .. dir)
+    for line in toc:lines() do
+        line = line:gsub("\r", ""):gsub("^%s+", ""):gsub("%s+$", "")
+        if line:match("%.lua$") and not line:match("^#") then files[#files + 1] = dir .. "/Deadbeat/" .. line end
+    end
+    toc:close()
     local before = #frames
     H.load("Deadbeat", files)
     local events = frames[before + 1]                             -- Deadbeat's event frame, the first it creates
@@ -128,10 +134,18 @@ function H.start(addon)
     H.fire("PLAYER_ENTERING_WORLD")
 end
 
--- the bar's tooltip as one string (hover the bar)
-function H.tooltip()
-    DeadbeatBar:_script("OnEnter")
-    return table.concat(lines, "\n")
+-- tooltips as one string: an item's (H.tooltip(item)), or every item's on the bar (H.tooltip())
+function H.tooltip(item)
+    if item then
+        item.frame:_script("OnEnter")
+        return table.concat(lines, "\n")
+    end
+    local all = {}
+    for _, it in ipairs(Deadbeat.Items and Deadbeat.Items() or {}) do
+        it.frame:_script("OnEnter")
+        for _, l in ipairs(lines) do all[#all + 1] = l end
+    end
+    return table.concat(all, "\n")
 end
 
 return H

@@ -63,7 +63,8 @@ Widgets follow the same colours and size; they are the exception, not the rule.
 
 ### 3.3 How many
 
-A module offers as many items as make sense, but **shows at most three by default**. More can exist on the shelf
+A module offers as many items as make sense, but **shows at most three by default in any one place** (contexts
+let a raid item and a city item both be defaults). More can exist on the shelf
 (§6) for players who want them.
 
 ## 4. Groups and dividers
